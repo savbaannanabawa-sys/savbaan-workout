@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111411">
+<title>Savbaan Workout</title>
+<style>
+:root{color-scheme:dark;--bg:#101210;--surface:#1b1f1b;--surface2:#252a25;--text:#f5f6f2;--muted:#a9b0a6;--accent:#c8f169;--accent2:#8ed9a5;--line:#343a33;--danger:#ffb4a9}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+main{max-width:780px;margin:auto;padding:0 15px 44px}
+header{padding:25px 2px 18px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{width:42px;height:42px;border-radius:14px;background:var(--accent);color:#171b12;display:grid;place-items:center;font-weight:950;font-size:21px}
+.eyebrow{font-size:.72rem;color:var(--accent);text-transform:uppercase;letter-spacing:.14em;font-weight:800}
+h1{font-size:1.45rem;line-height:1.1;margin:2px 0 0}
+h2{font-size:1.1rem;margin:0 0 12px}
+h3{font-size:1rem;margin:0}
+p{color:var(--muted);margin:5px 0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:17px;margin:13px 0}
+.hero{background:linear-gradient(135deg,#293b25,#1b251b);border-color:#45563b;padding:21px}
+.hero h2{font-size:1.45rem;max-width:390px;line-height:1.2}
+.hero p{color:#d4ddce}
+.pill{display:inline-flex;border-radius:99px;background:#34462b;color:var(--accent);padding:5px 10px;font-size:.78rem;font-weight:750}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.metric{background:var(--surface2);border-radius:15px;padding:13px;min-width:0}
+.metric .label{font-size:.78rem;color:var(--muted)}
+.metric .value{font-size:1.55rem;font-weight:850;letter-spacing:-.04em;line-height:1.35}
+.metric .sub{font-size:.75rem;color:var(--muted)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+button,input,select{font:inherit}
+button{border:1px solid var(--line);border-radius:12px;background:var(--surface2);color:var(--text);padding:10px 13px;cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+button.primary{background:var(--accent);color:#17200f;border-color:var(--accent);font-weight:850}
+button.subtle{background:transparent}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:13px}
+.tabs button{padding:9px 4px}
+.tabs button[aria-pressed=true]{background:var(--accent);color:#17200f;border-color:var(--accent);font-weight:850}
+.progress{height:8px;border-radius:99px;background:#0d0f0d;overflow:hidden;margin:10px 0}
+.progress>div{height:100%;width:0;background:var(--accent);border-radius:99px;transition:width .2s}
+.exercise{display:grid;grid-template-columns:25px minmax(0,1fr) auto;gap:10px;align-items:start;padding:13px 0;border-bottom:1px solid var(--line)}
+.exercise:last-child{border-bottom:0}
+.exercise input[type=checkbox]{width:20px;height:20px;accent-color:var(--accent);margin:2px 0 0}
+.ex-name{font-weight:750}
+.detail{font-size:.85rem;color:var(--muted)}
+.dose{font-size:.82rem;color:var(--accent);font-weight:750;text-align:right;white-space:nowrap}
+.week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
+.day{background:var(--surface2);border:1px solid var(--line);border-radius:12px;text-align:center;padding:8px 2px;font-size:.75rem;color:var(--muted)}
+.day b{display:block;font-size:.88rem;color:var(--text);margin-top:4px}
+.day.done{background:#293a24;border-color:#536b43;color:var(--accent)}
+.day.today{outline:1px solid var(--accent)}
+input[type=number],input[type=date],select{background:var(--surface2);color:var(--text);border:1px solid var(--line);border-radius:11px;padding:10px;width:100%;min-width:0}
+.field{display:flex;flex-direction:column;gap:5px;min-width:0}
+.field label{font-size:.8rem;color:var(--muted)}
+.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.history-item{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:10px 0}
+.history-item:last-child{border-bottom:0}
+.history-item strong{display:block}
+.empty{padding:14px;border:1px dashed var(--line);border-radius:12px;color:var(--muted);font-size:.88rem}
+.note{background:#302d1d;border-left:3px solid #e8d27d;padding:10px 12px;border-radius:0 10px 10px 0;color:#f4e9c0;font-size:.85rem}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:13px}
+small,footer{color:var(--muted)}
+footer{text-align:center;padding:24px 0;font-size:.8rem}
+@media(min-width:560px){main{padding:0 22px 50px}.card{padding:20px}.hero{padding:25px}.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.metric .value{font-size:1.7rem}}
+</style>
+</head>
+<body>
+<main>
+<header>
+ <div class="brand"><div class="logo">S</div><div><div class="eyebrow">Your personal fitness plan</div><h1>Savbaan Workout</h1></div></div>
+ <span class="pill">OFFLINE</span>
+</header>
+
+<section class="card hero">
+ <div class="eyebrow">Your next level starts here</div>
+ <h2>Small sessions.<br>Real progress.</h2>
+ <p>Build a stronger, more athletic physique with a simple bodyweight plan you can stick to.</p>
+ <div class="actions"><button class="primary" id="jump-workout">Start workout →</button><button id="jump-progress">View progress</button></div>
+</section>
+
+<section class="card">
+ <div class="row"><h2>Your progress</h2><span class="pill" id="week-label">THIS WEEK</span></div>
+ <div class="grid">
+  <div class="metric"><div class="label">Workouts this week</div><div class="value" id="metric-week">0/3</div><div class="sub">Goal: 3 sessions</div></div>
+  <div class="metric"><div class="label">Total workouts</div><div class="value" id="metric-total">0</div><div class="sub">Sessions completed</div></div>
+  <div class="metric"><div class="label">Current streak</div><div class="value" id="metric-streak">0</div><div class="sub">Training weeks in a row</div></div>
+  <div class="metric"><div class="label">Latest weight</div><div class="value" id="metric-weight">85 kg</div><div class="sub" id="weight-change">Starting reference</div></div>
+ </div>
+ <h3 style="margin-top:18px;margin-bottom:8px">This week</h3>
+ <div class="week" id="week-calendar"></div>
+ <div class="progress"><div id="week-progress"></div></div>
+ <p class="detail" id="week-caption">0 of 3 planned sessions completed</p>
+</section>
+
+<section class="card" id="workout-card">
+ <div class="row"><h2>Workout plan</h2><span class="pill">NO EQUIPMENT</span></div>
+ <p style="margin-bottom:14px">Train Monday, Wednesday and Friday. Aim for 2 sets of each exercise (2 rounds). Start with 1 set if two feels too hard; build up gradually.</p>
+ <div class="tabs" role="group" aria-label="Choose training day">
+  <button type="button" data-day="Monday" aria-pressed="true">Monday</button>
+  <button type="button" data-day="Wednesday" aria-pressed="false">Wednesday</button>
+  <button type="button" data-day="Friday" aria-pressed="false">Friday</button>
+ </div>
+ <p id="session-date" class="detail"></p>
+ <p id="warmup">Warm up for 2 minutes: march in place, move your arms and do a few easy squats.</p>
+ <div id="exercise-list"></div>
+ <div class="progress"><div id="session-progress"></div></div>
+ <p id="session-caption" class="detail" aria-live="polite">0 of 6 exercises checked</p>
+ <div class="actions"><button class="primary" id="complete-workout">Complete session</button><button id="reset-session">Reset checks</button></div>
+ <p id="session-message" aria-live="polite" class="detail"></p>
+</section>
+
+<section class="card" id="progress-card">
+ <div class="row"><h2>Body & progress log</h2><span class="pill">SAVED ON DEVICE</span></div>
+ <p>Log your weight occasionally, not every day. Normal daily changes are expected.</p>
+ <form id="weight-form">
+  <div class="formgrid" style="margin-top:12px">
+   <div class="field"><label for="weight-date">Date</label><input id="weight-date" type="date" required></div>
+   <div class="field"><label for="weight-value">Weight (kg)</label><input id="weight-value" type="number" min="20" max="350" step="0.1" placeholder="85.0" required></div>
+  </div>
+  <div class="actions"><button class="primary" type="submit">Save weight entry</button></div>
+ </form>
+ <div style="height:1px;background:var(--line);margin:18px 0"></div>
+ <h3>Weight log</h3>
+ <div id="weight-history" style="margin-top:8px"></div>
+ <div class="actions"><button id="export-data">Export my progress</button><button id="clear-data" class="subtle">Clear saved data</button></div>
+ <p id="data-message" class="detail" aria-live="polite"></p>
+</section>
+
+<section class="card">
+ <h2>Your 11-week progression</h2>
+ <div class="history-item"><div><strong>October · Make it automatic</strong><div class="detail">1–2 rounds, learn the movements, show up three times a week.</div></div></div>
+ <div class="history-item"><div><strong>November · Build strength</strong><div class="detail">Add 1–2 reps when comfortable. Progress wall push-ups to a sturdy counter.</div></div></div>
+ <div class="history-item"><div><strong>December · Keep improving</strong><div class="detail">Try 3 rounds only if your form stays good and recovery feels fine.</div></div></div>
+ <div class="note" style="margin-top:14px">Each set is one round of the listed reps/time; do the exercise twice. Rest 45–90 seconds between sets. You are 17 and still developing. Avoid crash diets. Eat regular balanced meals and aim for 8–10 hours of sleep. Stop if you feel sharp pain, dizzy or unwell.</div>
+</section>
+<footer>Savbaan Workout · Personal offline fitness tracker</footer>
+</main>
+<script>
+(function(){
+'use strict';
+const exercises=[
+ {name:'Bodyweight squats',dose:'2 sets × 10 reps',tip:'Move slowly and keep your heels down. Rest 45–90 seconds, then repeat.'},
+ {name:'Wall push-ups',dose:'2 sets × 8 reps',tip:'Keep your body straight. Progress to a sturdy counter when ready. Rest 45–90 seconds between sets.'},
+ {name:'Glute bridges',dose:'2 sets × 12 reps',tip:'Lift your hips gently without arching your lower back.'},
+ {name:'Reverse lunges',dose:'2 sets × 5/leg',tip:'Hold a stable support for balance if needed.'},
+ {name:'Prone Y raises',dose:'2 sets × 8 reps',tip:'Lie face down and gently lift your arms into a Y shape.'},
+ {name:'Plank',dose:'2 sets × 15 sec',tip:'Keep hips level and breathe normally.'}
+];
+const days=['Monday','Wednesday','Friday'];
+const names=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+let selectedDay='Monday';
+let logs=read('savbaan_logs',[]);
+let weights=read('savbaan_weights',[]);
+let daily=read('savbaan_daily_checks',{});
+let weekDone=read('savbaan_week_done',{});
+function read(key,fallback){try{const v=localStorage.getItem(key);return v===null?fallback:JSON.parse(v);}catch(e){return fallback;}}
+function save(){try{localStorage.setItem('savbaan_logs',JSON.stringify(logs));localStorage.setItem('savbaan_weights',JSON.stringify(weights));localStorage.setItem('savbaan_daily_checks',JSON.stringify(daily));localStorage.setItem('savbaan_week_done',JSON.stringify(weekDone));}catch(e){document.getElementById('data-message').textContent='Browser storage is unavailable. Export your progress to keep a copy.';}}
+function dateKey(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function parseDate(s){const a=s.split('-').map(Number);return new Date(a[0],a[1]-1,a[2]);}
+function weekStart(d){const x=new Date(d.getFullYear(),d.getMonth(),d.getDate());x.setDate(x.getDate()-((x.getDay()+6)%7));return x;}
+function weekKey(d){return dateKey(weekStart(d));}
+function daySessionKey(day,date=new Date()){return dateKey(date)+'_'+day;}
+function todayKey(){return dateKey(new Date());}
+function escapeText(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function renderWorkout(){
+ const root=document.getElementById('exercise-list');root.textContent='';
+ const key=daySessionKey(selectedDay);const state=daily[key]||[];
+ exercises.forEach((ex,i)=>{
+  const row=document.createElement('label');row.className='exercise';
+  const input=document.createElement('input');input.type='checkbox';input.checked=!!state[i];input.setAttribute('aria-label','Complete '+ex.name);
+  input.addEventListener('change',()=>{const a=(daily[key]||Array(6).fill(false)).slice();a[i]=input.checked;daily[key]=a;save();renderSessionProgress();});
+  const text=document.createElement('div');const name=document.createElement('div');name.className='ex-name';name.textContent=(i+1)+'. '+ex.name;
+  const tip=document.createElement('div');tip.className='detail';tip.textContent=ex.tip;text.append(name,tip);
+  const dose=document.createElement('div');dose.className='dose';dose.textContent=ex.dose;
+  row.append(input,text,dose);root.append(row);
+ });
+ document.querySelectorAll('[data-day]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.day===selectedDay)));
+ document.getElementById('session-date').textContent='Selected: '+selectedDay+' · '+new Date().toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
+ document.getElementById('session-message').textContent='';
+ renderSessionProgress();
+}
+function renderSessionProgress(){
+ const state=daily[daySessionKey(selectedDay)]||[];const n=state.filter(Boolean).length;
+ document.getElementById('session-progress').style.width=(n/exercises.length*100)+'%';
+ document.getElementById('session-caption').textContent=n+' of '+exercises.length+' exercises checked';
+}
+function completedDates(){return new Set(logs.map(x=>x.date));}
+function renderDashboard(){
+ const now=new Date();const start=weekStart(now);const completed=completedDates();
+ let count=0;days.forEach(day=>{if(completed.has(daySessionKey(day,now)))count++;});
+ document.getElementById('metric-week').textContent=count+'/3';
+ document.getElementById('week-label').textContent='WEEK OF '+start.toLocaleDateString(undefined,{month:'short',day:'numeric'}).toUpperCase();
+ document.getElementById('week-progress').style.width=(count/3*100)+'%';
+ document.getElementById('week-caption').textContent=count+' of 3 planned sessions completed this week';
+ document.getElementById('metric-total').textContent=String(logs.length);
+ document.getElementById('metric-streak').textContent=String(streakWeeks());
+ const sorted=weights.slice().sort((a,b)=>a.date.localeCompare(b.date));
+ const latest=sorted[sorted.length-1];
+ document.getElementById('metric-weight').textContent=latest?latest.kg.toFixed(1)+' kg':'85 kg';
+ if(sorted.length>1){const diff=latest.kg-sorted[0].kg;document.getElementById('weight-change').textContent=(diff>0?'+':'')+diff.toFixed(1)+' kg since first log';}
+ else document.getElementById('weight-change').textContent=latest?'Latest saved entry':'Starting reference only';
+ const cal=document.getElementById('week-calendar');cal.textContent='';
+ for(let i=0;i<7;i++){
+  const d=new Date(start);d.setDate(start.getDate()+i);const el=document.createElement('div');el.className='day';
+  if(dateKey(d)===todayKey())el.classList.add('today');
+  const dayName=document.createElement('span');dayName.textContent=names[d.getDay()];
+  const n=document.createElement('b');const isDone=completed.has(daySessionKey(days[0],d))||completed.has(daySessionKey(days[1],d))||completed.has(daySessionKey(days[2],d));
+  if(isDone)el.classList.add('done');n.textContent=String(d.getDate())+(isDone?' ✓':'');
+  el.append(dayName,n);cal.append(el);
+ }
+}
+function streakWeeks(){
+ if(!logs.length)return 0;
+ const weeks=new Set(logs.map(x=>weekKey(parseDate(x.date))));
+ let current=weekStart(new Date());let count=0;
+ if(!weeks.has(dateKey(current))){current.setDate(current.getDate()-7);}
+ while(weeks.has(dateKey(current))){count++;current.setDate(current.getDate()-7);if(count>520)break;}
+ return count;
+}
+function renderWeights(){
+ const root=document.getElementById('weight-history');root.textContent='';
+ const sorted=weights.slice().sort((a,b)=>b.date.localeCompare(a.date));
+ if(!sorted.length){const e=document.createElement('div');e.className='empty';e.textContent='No weight entries yet. Add one above whenever you want to track it.';root.append(e);return;}
+ sorted.slice(0,12).forEach(w=>{
+  const row=document.createElement('div');row.className='history-item';
+  const left=document.createElement('div');const strong=document.createElement('strong');strong.textContent=w.kg.toFixed(1)+' kg';const date=document.createElement('div');date.className='detail';date.textContent=parseDate(w.date).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'});left.append(strong,date);
+  const remove=document.createElement('button');remove.type='button';remove.textContent='Remove';remove.setAttribute('aria-label','Remove weight entry '+w.kg+' kilograms on '+w.date);
+  remove.addEventListener('click',()=>{weights=weights.filter(x=>x.id!==w.id);save();renderWeights();renderDashboard();});
+  row.append(left,remove);root.append(row);
+ });
+}
+document.querySelectorAll('[data-day]').forEach(b=>b.addEventListener('click',()=>{selectedDay=b.dataset.day;renderWorkout();}));
+document.getElementById('complete-workout').addEventListener('click',()=>{
+ const key=daySessionKey(selectedDay);const n=(daily[key]||[]).filter(Boolean).length;
+ if(n===0){document.getElementById('session-message').textContent='Start by checking the exercises you completed. Even one round is a good start.';return;}
+ if(logs.some(x=>x.date===todayKey())){document.getElementById('session-message').textContent='A workout is already recorded for today. Great job showing up.';return;}
+ logs.push({date:todayKey(),day:selectedDay,exercises:n});save();renderDashboard();
+ document.getElementById('session-message').textContent='Workout recorded! You completed '+n+' of 6 exercise checklists. Recover and come back on your next training day.';
+});
+document.getElementById('reset-session').addEventListener('click',()=>{
+ daily[daySessionKey(selectedDay)]=Array(6).fill(false);save();renderWorkout();document.getElementById('session-message').textContent='Exercise checks reset.';
+});
+document.getElementById('weight-date').value=todayKey();
+document.getElementById('weight-form').addEventListener('submit',e=>{
+ e.preventDefault();const date=document.getElementById('weight-date').value;const kg=Number(document.getElementById('weight-value').value);
+ if(!date||!Number.isFinite(kg)||kg<20||kg>350){document.getElementById('data-message').textContent='Enter a valid date and weight between 20 and 350 kg.';return;}
+ weights=weights.filter(w=>w.date!==date);weights.push({id:date+'_'+String(kg),date:date,kg:kg});save();renderWeights();renderDashboard();document.getElementById('data-message').textContent='Weight entry saved on this device.';
+});
+document.getElementById('export-data').addEventListener('click',()=>{
+ const data={app:'Savbaan Workout',exportedAt:new Date().toISOString(),workoutLogs:logs,weightEntries:weights,exerciseChecks:daily};
+ const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='savbaan-workout-progress.json';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);document.getElementById('data-message').textContent='Progress export requested. Check your Downloads folder.';
+});
+document.getElementById('clear-data').addEventListener('click',()=>{
+ if(!confirm('Clear all saved workouts, exercise checks and weight entries on this device? Export your progress first if you want a backup.'))return;
+ logs=[];weights=[];daily={};weekDone={};save();renderWorkout();renderWeights();renderDashboard();document.getElementById('data-message').textContent='Saved progress cleared.';
+});
+document.getElementById('jump-workout').addEventListener('click',()=>document.getElementById('workout-card').scrollIntoView({behavior:'smooth'}));
+document.getElementById('jump-progress').addEventListener('click',()=>document.getElementById('progress-card').scrollIntoView({behavior:'smooth'}));
+renderWorkout();renderWeights();renderDashboard();
+})();
+</script>
+</body>
+</html>

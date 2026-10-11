@@ -1,0 +1,12 @@
+SAVBAAN WORKOUT — ANDROID APK BUILD (PHONE ONLY)
+
+This ZIP is the complete Android project and includes a GitHub Actions cloud-build workflow. A PC is not needed, but GitHub account access is required to run the cloud build. This package is source code, not an APK.
+
+1. Open https://github.com in your phone browser and sign in (create a free account if needed).
+2. Create a repository named savbaan-workout.
+3. Upload the CONTENTS of this ZIP to the repository root (do not upload the ZIP as one file). Include the hidden .github/workflows/build-apk.yml workflow file; if needed enable Desktop site in the browser.
+4. Commit the files to the main branch. The workflow should start automatically. Alternatively, open Actions and manually run “Build Savbaan Workout APK”.
+5. When the run succeeds, open the run page and download the “Savbaan-Workout-APK” artifact.
+6. Extract that artifact ZIP and tap app-debug.apk to install. If Android asks, permit the file manager/browser to install unknown apps for this installation.
+
+The workflow builds a debug APK for personal testing. It has not been run or verified from this package in this environment.
